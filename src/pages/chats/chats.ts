@@ -40,10 +40,6 @@ export class ChatsPage {
   }
 
   ionViewDidLeave() {
-    console.log(
-      'ionViewDidLeave  this.events.unsubscribe( gotrequests );  ',
-      this.requestService.userDetails
-    );
     this.events.unsubscribe('gotrequests');
     this.events.unsubscribe('friends');
   }

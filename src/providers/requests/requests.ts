@@ -71,16 +71,16 @@ export class RequestsProvider {
     var promise = new Promise((resolve, reject) => {
       this.fireFriends
         .child(firebase.auth().currentUser.uid)
-        .push({
+        .push({                       // dodaje do bazy firends/ swoje uid / uid przyjaciela
           uid: buddy.uid
         })
         .then(() => {
           this.fireFriends
             .child(buddy.uid)
-            .push({
+            .push({                   // dodaje do bazy firends/ uid przyjaciela / moje uid
               uid: firebase.auth().currentUser.uid
             })
-            .then(() => {
+            .then(() => {             // usuwa w bazie request wpis
               this.deleteRequest(buddy).then(() => {
                 resolve(true);
               });

@@ -80,6 +80,9 @@ export class ChatsPage {
   }
 
   buddyChat(item) {
-    console.log('buddyChat(item)', item);
+    console.log('buddyChat(item)', item.displayName);
+    this.navCtrl.push('ChatPage', {
+      item: item
+    });
   }
 }

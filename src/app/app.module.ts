@@ -13,6 +13,7 @@ import { MyApp } from './app.component';
 import { config } from '../config/config';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { ImghandlerProvider } from '../providers/img-handler/img-handler';
@@ -25,7 +26,8 @@ import { RequestsProvider } from '../providers/requests/requests';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, { tabsPlacement: 'top' }),
-    AngularFireModule.initializeApp(config.firebase)
+    AngularFireModule.initializeApp(config.firebase),
+     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
   ],
   bootstrap: [IonicApp],
   entryComponents: [

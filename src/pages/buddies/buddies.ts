@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from 'ionic-angular';
 import { RequestsProvider } from './../../providers/requests/requests';
 import { AuthProvider } from './../../providers/auth/auth';
 import { UserProvider } from './../../providers/user/user';
@@ -8,22 +13,24 @@ import { connreq } from './../../models/interfaces/request';
 @IonicPage()
 @Component({
   selector: 'page-buddies',
-  templateUrl: 'buddies.html',
+  templateUrl: 'buddies.html'
 })
 export class BuddiesPage {
   newrequest = {} as connreq;
   temparr = [];
   filteredusers = [];
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public userService: UserProvider,
     public authProvider: AuthProvider,
     public alertCtrl: AlertController,
-    public requestService: RequestsProvider) {
+    public requestService: RequestsProvider
+  ) {
     this.userService.getAllUsers().then((res: any) => {
       this.filteredusers = res;
       this.temparr = res;
-    })
+    });
   }
 
   ionViewDidLoad() {
@@ -37,12 +44,12 @@ export class BuddiesPage {
     if (q.trim() == '') {
       return;
     }
-    this.filteredusers = this.filteredusers.filter((v) => {
+    this.filteredusers = this.filteredusers.filter(v => {
       if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
         return true;
       }
       return false;
-    })
+    });
   }
 
   sendreq(recipient) {
@@ -57,18 +64,18 @@ export class BuddiesPage {
         buttons: ['ok']
       });
 
-      this.requestService.sendrequest(this.newrequest).then((res: any) => {
-        if (res.success) {
-          successAlert.present();
-          let sentuser = this.filteredusers.indexOf(recipient);
-          this.filteredusers.splice(sentuser, 1);
-        }
-      }).catch((err) => {
-        alert(err);
-      });
-
-
+      this.requestService
+        .sendrequest(this.newrequest)
+        .then((res: any) => {
+          if (res.success) {
+            successAlert.present();
+            let sentuser = this.filteredusers.indexOf(recipient);
+            this.filteredusers.splice(sentuser, 1);
+          }
+        })
+        .catch(err => {
+          alert(err);
+        });
     }
   }
-
 }

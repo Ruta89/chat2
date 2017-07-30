@@ -9,7 +9,6 @@ import { FilePath } from '@ionic-native/file-path';
 import { FileChooser } from '@ionic-native/file-chooser';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 
 import { config } from '../config/config';
 import { AngularFireModule } from 'angularfire2';
@@ -21,8 +20,7 @@ import { RequestsProvider } from '../providers/requests/requests';
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -31,8 +29,7 @@ import { RequestsProvider } from '../providers/requests/requests';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   providers: [
     StatusBar,

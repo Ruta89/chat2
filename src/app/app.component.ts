@@ -8,23 +8,25 @@ import { AuthProvider } from './../providers/auth/auth';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;
+  rootPage: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, authProvider: AuthProvider) {
+  constructor(
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    authProvider: AuthProvider
+  ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-	  
-	  authProvider.authState.subscribe(user => {
+
+      authProvider.authState.subscribe(user => {
         if (user) {
-          this.rootPage = 'TabsPage'
+          this.rootPage = 'TabsPage';
         } else {
-          this.rootPage = 'LoginPage'
+          this.rootPage = 'LoginPage';
         }
       });
     });
   }
 }
-

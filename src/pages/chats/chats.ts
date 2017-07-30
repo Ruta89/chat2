@@ -1,21 +1,28 @@
 import { RequestsProvider } from './../../providers/requests/requests';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  Events,
+  AlertController
+} from 'ionic-angular';
 
 @IonicPage()
 @Component({
   selector: 'page-chats',
-  templateUrl: 'chats.html',
+  templateUrl: 'chats.html'
 })
 export class ChatsPage {
   myRequests;
   myFriends;
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public requestService: RequestsProvider,
     public events: Events,
-    public alertCtrl: AlertController) {
-  }
+    public alertCtrl: AlertController
+  ) {}
 
   ionViewWillEnter() {
     this.requestService.getMyRequest();
@@ -25,15 +32,18 @@ export class ChatsPage {
     this.events.subscribe('gotrequests', () => {
       this.myRequests = [];
       this.myRequests = this.requestService.userDetails;
-    })
+    });
     this.events.subscribe('friends', () => {
       this.myFriends = [];
       this.myFriends = this.requestService.myFriends;
-    })
+    });
   }
 
   ionViewDidLeave() {
-    console.log('ionViewDidLeave  this.events.unsubscribe( gotrequests );  ', this.requestService.userDetails);
+    console.log(
+      'ionViewDidLeave  this.events.unsubscribe( gotrequests );  ',
+      this.requestService.userDetails
+    );
     this.events.unsubscribe('gotrequests');
     this.events.unsubscribe('friends');
   }
@@ -46,7 +56,8 @@ export class ChatsPage {
     this.navCtrl.push('BuddiesPage');
   }
   accept(item) {
-    this.requestService.acceptRequest(item)
+    this.requestService
+      .acceptRequest(item)
       .then(() => {
         let newalert = this.alertCtrl.create({
           title: 'Przyjaciel dodany',
@@ -54,23 +65,25 @@ export class ChatsPage {
           buttons: ['ok']
         });
         newalert.present();
-      }).catch((err) => {
-        alert(err)
       })
+      .catch(err => {
+        alert(err);
+      });
   }
 
   ignore(item) {
     console.log('Ignorujesz  ', item.displayName);
-    this.requestService.deleteRequest(item)
+    this.requestService
+      .deleteRequest(item)
       .then(() => {
-        alert('Ignorujesz  ' + item.displayName)
-      }).catch((err) => {
-        alert(err)
+        alert('Ignorujesz  ' + item.displayName);
       })
+      .catch(err => {
+        alert(err);
+      });
   }
 
-  buddyChat(item){
+  buddyChat(item) {
     console.log('buddyChat(item)', item);
   }
-
 }

@@ -78,16 +78,7 @@ export class UserProvider {
     return promise;
   }
 
-  /*
-  
-  For updating the users collection and the firebase users list with
-  the imageurl of the profile picture stored in firebase storage.
-  Called from - profilepic.ts
-  Inputs - Url of the image stored in firebase.
-  OUtputs - Promise.
-  
-  */
-
+  // Update Avatar in android
   updateimage(imageurl) {
     var promise = new Promise((resolve, reject) => {
       this.afireauth.auth.currentUser.updateProfile({
@@ -98,6 +89,29 @@ export class UserProvider {
           displayName: this.afireauth.auth.currentUser.displayName,
           photoURL: imageurl,
           uid: firebase.auth().currentUser.uid
+        }).then(() => {
+          resolve({ success: true });
+        }).catch((err) => {
+          reject(err);
+        })
+      }).catch((err) => {
+        reject(err);
+      })
+    })
+    return promise;
+  }
+
+  // Update Avatar in browser
+  updateAvatar(newAvatar) {
+    var promise = new Promise((resolve, reject) => {
+      this.afireauth.auth.currentUser.updateProfile({
+        displayName: this.afireauth.auth.currentUser.displayName,
+        photoURL: newAvatar
+      }).then(() => {
+        this.firedata.child(firebase.auth().currentUser.uid).update({
+          displayName: this.afireauth.auth.currentUser.displayName,
+          photoURL: newAvatar,
+          uid: this.afireauth.auth.currentUser.uid
         }).then(() => {
           resolve({ success: true });
         }).catch((err) => {
